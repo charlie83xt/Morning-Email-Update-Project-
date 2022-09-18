@@ -92,7 +92,7 @@ def get_twitter_trends(place = WOEID):
         #     for trend in value['trends']:
         #         trends['Trends'].append({trend['name']: trend['url']})
 
-        # return f"The top trends for the selected location are:\n {trending_topic}"
+        # return f"The top trends for the selected location are:\n {trends}"
         return trending_topic
 
     except Exception as e:
@@ -137,23 +137,22 @@ if __name__=='__main__':
     '''
 
     ### test get Twitter trends ###
-    trends = get_twitter_trends()
-    if trends:
+    dict_object = get_twitter_trends() # test with default location; UK
+    if dict_object:
         print('Top 10 Twitter trends in London are... ')
-        for trend in trends[0:10]:
-            print(f' - {trend["trends"][0]["name"]} : {trend["trends"][0]["url"]}')
-            # print(f' - {trend["name"]}:{trend["url"]}')
-            # print(trend["trends"][0])
+        for trend in dict_object:
+            for inner_dict in trend["trends"][:10]:
+                print(f' - {inner_dict["name"]} : {inner_dict["url"]}')
     
-    trends = get_twitter_trends(place = 23424977)
-    if trends:
+    dict_object = get_twitter_trends(place = 23424977) # test with a different location; USA
+    if dict_object:
         print('Top 10 Twitter trends in United States are... ')
-        for trend in trends[0:10]:
-            print(f' - {trend["trends"][0]["name"]} : {trend["trends"][0]["url"]}')
-            # print(trend["trends"][0])
-            # print(f' - {trend["name"]}:{trend["url"]}')
+        for trend in dict_object:
+            for inner_dict in trend["trends"][:10]:
+                print(f' - {inner_dict["name"]} : {inner_dict["url"]}')
 
-    trends = get_twitter_trends(place = 1)
-    if trends == None:
+
+    dict_object = get_twitter_trends(place = 0) # test with wrong location
+    if dict_object == None:
         print('\nTwitter trends for invalid location returned None')
         
