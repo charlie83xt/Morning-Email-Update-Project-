@@ -8,6 +8,7 @@ import tweepy as tw
 from datetime import datetime
 import requests
 import os
+from IPython.display import Image, display
 
 # Accuweather credentials
 LOCATION_KEY = "328328"
@@ -99,7 +100,40 @@ def get_twitter_trends(place = WOEID):
         print(e)
 
 def get_wikipedia_article():
-    pass
+    try: 
+        url = "https://en.wikipedia.org/api/rest_v1/page/random/summary"
+        response = requests.request("GET", url)
+        data = response.json()
+        
+        wiki_article = {
+            "title":data["title"],
+            "thumbnail":display(Image(data=data["thumbnail"]["source"], width=data["thumbnail"]["width"], height=data["thumbnail"]["height"])),
+            "extract":data["extract"],
+            "content":data["content_urls"]["desktop"]["page"]
+        }
+
+        return wiki_article
+
+    except Exception as e:
+        return(e)
+    
+
+    # result = wikipedia.search(theme)
+    # first_cut = random.choice(result)
+    # second_result = wikipedia.search(first_cut)
+    # second_cut = random.choice(second_result)
+    # page = wikipedia.page(second_cut)
+    # title = page.title
+    # related_links = page.links
+    # summary = wikipedia.summary(second_cut, sentences = 5)
+
+#     print(title)
+#     print(summary)
+#     print(related_links[:5])
+
+# get_wikipedia_article()
+
+    # return title, summary, related_links[:5]
 
 if __name__=='__main__':
     ### test get_random_quote() ###
@@ -137,6 +171,7 @@ if __name__=='__main__':
     '''
 
     ### test get Twitter trends ###
+    '''
     dict_object = get_twitter_trends() # test with default location; UK
     if dict_object:
         print('Top 10 Twitter trends in London are... ')
@@ -155,4 +190,14 @@ if __name__=='__main__':
     dict_object = get_twitter_trends(place = 0) # test with wrong location
     if dict_object == None:
         print('\nTwitter trends for invalid location returned None')
+    '''
+    ### Get Wikipedia Random Article ###
+    wiki_article = get_wikipedia_article()
+    if wiki_article:
+        print(f'\n{wiki_article["title"]}\n{(wiki_article["thumbnail"])}\n{wiki_article["extract"]}\n{wiki_article["content"]}')
+        
+    #     # Different theme Article #
+    # wiki_article = get_wikipedia_article("Spain")
+    # if wiki_article:
+    #     print(wiki_article)
         
