@@ -107,7 +107,8 @@ def get_wikipedia_article():
         
         wiki_article = {
             "title":data["title"],
-            "thumbnail":display(Image(data=data["thumbnail"]["source"], width=data["thumbnail"]["width"], height=data["thumbnail"]["height"])),
+            # "thumbnail":display(Image(data["thumbnail"]["source"], data["thumbnail"]["width"], data["thumbnail"]["height"])),
+            "thumbnail":data["thumbnail"]["source"],
             "extract":data["extract"],
             "content":data["content_urls"]["desktop"]["page"]
         }
@@ -116,24 +117,6 @@ def get_wikipedia_article():
 
     except Exception as e:
         return(e)
-    
-
-    # result = wikipedia.search(theme)
-    # first_cut = random.choice(result)
-    # second_result = wikipedia.search(first_cut)
-    # second_cut = random.choice(second_result)
-    # page = wikipedia.page(second_cut)
-    # title = page.title
-    # related_links = page.links
-    # summary = wikipedia.summary(second_cut, sentences = 5)
-
-#     print(title)
-#     print(summary)
-#     print(related_links[:5])
-
-# get_wikipedia_article()
-
-    # return title, summary, related_links[:5]
 
 if __name__=='__main__':
     ### test get_random_quote() ###
