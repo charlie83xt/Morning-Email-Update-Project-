@@ -1,8 +1,4 @@
 import dd_content
-from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
-from email.mime.application import MIMEApplication 
-from email.mime.multipart import MIMEMultipart
 from email.message import EmailMessage
 import smtplib
 import os 
@@ -10,14 +6,6 @@ import datetime
 
 
 live_pass = os.environ.get("HOTMAILPASS") #EMAIL SERVER ENV PASS
-
-# Connection to email server
-# smtp = smtplib.SMTP('smtp.live.com', 25)
-# smtp.ehlo()
-# smtp.starttls()
-
-# Email login and Password
-# smtp.login('charlie83xt@hotmail.com', live_pass)
 
 class DailyDigestEmail:
 
