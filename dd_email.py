@@ -3,6 +3,7 @@ from email.message import EmailMessage
 import smtplib
 import os 
 import datetime
+import dd_gui
 
 
 live_pass = os.environ.get("HOTMAILPASS") #EMAIL SERVER ENV PASS
@@ -11,7 +12,7 @@ class DailyDigestEmail:
 
     def __init__(self):
         self.content = {
-            "quote":{"include":True, "content":dd_content.get_random_quote()},
+            "quote":{"include": True, "content":dd_content.get_random_quote()},
             "weather":{"include":True, "content":dd_content.get_weather_forecast()},
             "twitter":{"include":True, "content":dd_content.get_twitter_trends()},
             "wikipedia":{"include":True, "content":dd_content.get_wikipedia_article()}
